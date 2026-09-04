@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Vazirmatn", "Vazir", "IRANSans", Tahoma, system-ui, sans-serif;
+  --color-brand-50: #fff4ee;
+  --color-brand-100: #ffe4d5;
+  --color-brand-200: #ffc6a8;
+  --color-brand-300: #ff9e70;
+  --color-brand-400: #ff6b36;
+  --color-brand-500: #f24e0f;
+  --color-brand-600: #e2531d;
+  --color-brand-700: #b93b0f;
+  --color-brand-800: #933112;
+  --color-brand-900: #772c13;
+  --color-sage-50: #eefaf3;
+  --color-sage-100: #d6f2e1;
+  --color-sage-500: #1b8a5a;
+  --color-sage-600: #15704a;
+  --color-cream: #faf8f5;
+  --color-ink: #1c1917;
+  --radius-2xl: 1.25rem;
+  --radius-3xl: 1.75rem;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01";
+    overscroll-behavior-y: none;
+  }
+  input,
+  button,
+  select,
+  textarea {
+    font: inherit;
+  }
+  button {
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  ::selection {
+    background: var(--color-brand-200);
+  }
+}
+
+@layer utilities {
+  .safe-bottom {
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 0.5rem);
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+  .press:active {
+    transform: scale(0.97);
+  }
+  .press {
+    transition: transform 120ms ease, background-color 150ms ease, opacity 150ms ease;
+  }
+  .card {
+    background: white;
+    border: 1px solid #ede9e4;
+    border-radius: var(--radius-2xl);
+    box-shadow: 0 1px 2px rgba(28, 25, 23, 0.04);
+  }
+  .fade-in {
+    animation: fadeIn 260ms ease both;
+  }
+  .slide-up {
+    animation: slideUp 260ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+  .pulse-ring {
+    animation: pulseRing 1.6s ease-out infinite;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes pulseRing {
+  0% {
+    box-shadow: 0 0 0 0 rgba(226, 83, 29, 0.35);
+  }
+  100% {
+    box-shadow: 0 0 0 18px rgba(226, 83, 29, 0);
+  }
+}

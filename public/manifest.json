@@ -1,0 +1,15 @@
+{
+  "name": "آشپز — دستیار آشپزی قدم‌به‌قدم",
+  "short_name": "آشپز",
+  "description": "با چیزهایی که داری چی می‌تونی بپزی؟ آشپزی مرحله‌به‌مرحله با تایمر و لیست خرید هوشمند.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "dir": "rtl",
+  "lang": "fa",
+  "background_color": "#faf8f5",
+  "theme_color": "#e2531d",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
