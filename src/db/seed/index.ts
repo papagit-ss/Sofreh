@@ -7,17 +7,17 @@ import { RECIPES_B } from "./recipes-b";
 
 const ALL_RECIPES = [...RECIPES_A, ...RECIPES_B];
 
-const g = globalThis as typeof globalThis & { __ashpazSeedPromise?: Promise<void> };
+const g = globalThis as typeof globalThis & { __sofreSeedPromise?: Promise<void> };
 
 /** Idempotent: seeds catalog data if the recipes table is empty. */
 export function ensureSeeded(): Promise<void> {
-  if (!g.__ashpazSeedPromise) {
-    g.__ashpazSeedPromise = runSeed().catch((e) => {
-      g.__ashpazSeedPromise = undefined;
+  if (!g.__sofreSeedPromise) {
+    g.__sofreSeedPromise = runSeed().catch((e) => {
+      g.__sofreSeedPromise = undefined;
       throw e;
     });
   }
-  return g.__ashpazSeedPromise;
+  return g.__sofreSeedPromise;
 }
 
 async function runSeed() {

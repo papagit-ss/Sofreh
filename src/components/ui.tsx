@@ -84,11 +84,11 @@ export function Button({
 }) {
   const sizes = { lg: "h-13 px-5 text-base rounded-2xl", md: "h-11 px-4 text-sm rounded-xl", sm: "h-9 px-3 text-sm rounded-lg" };
   const variants = {
-    primary: "bg-brand-600 text-white shadow-sm shadow-brand-600/25 hover:bg-brand-700",
-    secondary: "bg-white text-ink ring-1 ring-stone-200 hover:bg-stone-50",
+    primary: "bg-gradient-to-b from-brand-500 to-brand-600 text-white shadow-md shadow-brand-600/30 hover:from-brand-600 hover:to-brand-700",
+    secondary: "bg-white text-ink ring-1 ring-stone-200 shadow-sm hover:bg-stone-50",
     ghost: "bg-transparent text-stone-700 hover:bg-stone-100",
     danger: "bg-red-50 text-red-700 ring-1 ring-red-200",
-    green: "bg-sage-500 text-white shadow-sm shadow-sage-500/25",
+    green: "bg-gradient-to-b from-sage-500 to-sage-600 text-white shadow-md shadow-sage-500/30",
   };
   const cls = `inline-flex items-center justify-center gap-2 font-bold press disabled:opacity-50 disabled:pointer-events-none ${sizes[size]} ${variants[variant]} ${className}`;
   if (href) {
@@ -129,7 +129,7 @@ export function Sheet({
   if (!open) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center" role="dialog" aria-modal>
-      <div className="absolute inset-0 bg-ink/40 backdrop-blur-[2px]" onClick={onClose} />
+      <div className="absolute inset-0 bg-ink/40 backdrop-blur-[2px] backdrop-in" onClick={onClose} />
       <div
         className={`relative w-full max-w-lg rounded-t-3xl bg-white shadow-2xl slide-up ${tall ? "h-[88dvh]" : "max-h-[85dvh]"} flex flex-col`}
       >
@@ -148,8 +148,8 @@ export function Sheet({
 
 export function EmptyState({ emoji, title, text, action }: { emoji: string; title: string; text?: string; action?: ReactNode }) {
   return (
-    <div className="card mx-4 my-6 flex flex-col items-center px-6 py-10 text-center">
-      <div className="text-5xl">{emoji}</div>
+    <div className="card mx-4 my-6 flex flex-col items-center px-6 py-10 text-center anim-fade-up">
+      <div className="text-5xl float-slow">{emoji}</div>
       <h3 className="mt-3 text-lg font-extrabold">{title}</h3>
       {text && <p className="mt-1 text-sm leading-6 text-stone-500">{text}</p>}
       {action && <div className="mt-5">{action}</div>}
@@ -158,7 +158,7 @@ export function EmptyState({ emoji, title, text, action }: { emoji: string; titl
 }
 
 export function Skeleton({ className = "" }: { className?: string }) {
-  return <div className={`animate-pulse rounded-xl bg-stone-200/70 ${className}`} />;
+  return <div className={`shimmer rounded-xl bg-stone-200/60 ${className}`} />;
 }
 
 export function SectionTitle({ title, href, hrefLabel = "همه" }: { title: string; href?: string; hrefLabel?: string }) {
@@ -179,7 +179,7 @@ export function useToast() {
     const el = document.createElement("div");
     el.textContent = msg;
     el.className =
-      "fixed left-1/2 top-4 z-[100] -translate-x-1/2 rounded-full bg-ink px-4 py-2 text-sm font-semibold text-white shadow-lg fade-in";
+      "fixed left-1/2 top-4 z-[100] rounded-full bg-ink px-4 py-2 text-sm font-semibold text-white shadow-lg toast-in";
     document.body.appendChild(el);
     setTimeout(() => el.remove(), 2200);
   };

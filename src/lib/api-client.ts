@@ -2,11 +2,12 @@
 
 // لایه ارتباط با API — در اپ اندروید (Capacitor/WebView یا نیتیو) فقط BASE_URL و نحوه ذخیره userId عوض می‌شود.
 
-const USER_KEY = "ashpaz:userId";
+const USER_KEY = "sofre:userId";
+const LEGACY_USER_KEY = "ashpaz:userId";
 
 export function getUserId(): string {
   if (typeof window === "undefined") return "anonymous";
-  let id = window.localStorage.getItem(USER_KEY);
+  let id = window.localStorage.getItem(USER_KEY) ?? window.localStorage.getItem(LEGACY_USER_KEY);
   if (!id) {
     id =
       typeof crypto !== "undefined" && "randomUUID" in crypto

@@ -3,52 +3,46 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { api } from "./api-client";
 
+type State<T> = { forPath: string | null; data: T | null; error: string | null };
+
 /** هوک ساده برای fetch با قابلیت refetch (بدون وابستگی خارجی) */
 export function useApi<T>(path: string | null) {
-  const [data, setData] = useState<T | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(!!path);
-  const pathRef = useRef(path);
-  pathRef.current = path;
-
-  const refetch = useCallback(async (silent = false) => {
-    const p = pathRef.current;
-    if (!p) return;
-    if (!silent) setLoading(true);
-    try {
-      const d = await api<T>(p);
-      if (pathRef.current === p) {
-        setData(d);
-        setError(null);
-      }
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "خطا");
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  const [state, setState] = useState<State<T>>({ forPath: null, data: null, error: null });
+  const [reloadTick, setReloadTick] = useState(0);
+  const reqId = useRef(0);
 
   useEffect(() => {
-    if (!path) {
-      setData(null);
-      setLoading(false);
-      return;
-    }
+    if (!path) return;
+    const id = ++reqId.current;
     let cancelled = false;
-    setLoading(true);
     api<T>(path)
       .then((d) => {
-        if (!cancelled) {
-          setData(d);
-          setError(null);
-        }
+        if (!cancelled && reqId.current === id) setState({ forPath: path, data: d, error: null });
       })
-      .catch((e) => !cancelled && setError(e instanceof Error ? e.message : "خطا"))
-      .finally(() => !cancelled && setLoading(false));
+      .catch((e) => {
+        if (!cancelled && reqId.current === id)
+          setState({ forPath: path, data: null, error: e instanceof Error ? e.message : "خطا" });
+      });
     return () => {
       cancelled = true;
     };
-  }, [path]);
+  }, [path, reloadTick]);
 
-  return { data, error, loading, refetch, setData };
+  const refetch = useCallback((_silent = false) => {
+    void _silent;
+    setReloadTick((t) => t + 1);
+  }, []);
+
+  const setData = useCallback((d: T | null) => {
+    setState((s) => ({ ...s, data: d }));
+  }, []);
+
+  const isCurrent = state.forPath === path;
+  return {
+    data: state.data,
+    error: isCurrent ? state.error : null,
+    loading: !!path && !isCurrent,
+    refetch,
+    setData,
+  };
 }

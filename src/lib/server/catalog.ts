@@ -18,12 +18,12 @@ export type CatalogRecipe = typeof recipes.$inferSelect & {
   steps: typeof recipeSteps.$inferSelect[];
 };
 
-const g = globalThis as typeof globalThis & { __ashpazCatalog?: { at: number; data: CatalogRecipe[] } };
+const g = globalThis as typeof globalThis & { __sofreCatalog?: { at: number; data: CatalogRecipe[] } };
 const TTL = 5 * 60 * 1000;
 
 export async function loadCatalog(): Promise<CatalogRecipe[]> {
   await ensureSeeded();
-  if (g.__ashpazCatalog && Date.now() - g.__ashpazCatalog.at < TTL) return g.__ashpazCatalog.data;
+  if (g.__sofreCatalog && Date.now() - g.__sofreCatalog.at < TTL) return g.__sofreCatalog.data;
 
   const [rs, ris, ings, steps] = await Promise.all([
     db.select().from(recipes),
@@ -41,12 +41,12 @@ export async function loadCatalog(): Promise<CatalogRecipe[]> {
       .filter((ri) => ri.ingredient),
     steps: steps.filter((s) => s.recipeId === r.id).sort((a, b) => a.stepNumber - b.stepNumber),
   }));
-  g.__ashpazCatalog = { at: Date.now(), data };
+  g.__sofreCatalog = { at: Date.now(), data };
   return data;
 }
 
 export function invalidateCatalog() {
-  g.__ashpazCatalog = undefined;
+  g.__sofreCatalog = undefined;
 }
 
 export type PantryContext = {

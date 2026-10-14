@@ -37,15 +37,19 @@ export default function HomePage() {
   return (
     <main className="pb-24">
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-bl from-brand-600 via-brand-500 to-brand-400 px-5 pb-16 pt-8 text-white">
-        <div className="absolute -left-10 -top-10 h-40 w-40 rounded-full bg-white/10" />
-        <div className="absolute -bottom-16 right-10 h-48 w-48 rounded-full bg-white/10" />
-        <div className="relative">
-          <div className="flex items-center gap-2 text-sm font-medium text-white/85">
-            <Icon name="chef" className="h-5 w-5" /> آشپز
+      <section className="grain relative overflow-hidden bg-gradient-to-bl from-brand-700 via-brand-500 to-brand-400 aurora px-5 pb-16 pt-8 text-white">
+        <div className="drift-a absolute -left-12 -top-12 h-44 w-44 rounded-full bg-white/15 blur-2xl" />
+        <div className="drift-b absolute -bottom-20 right-6 h-52 w-52 rounded-full bg-amber-300/25 blur-3xl" />
+        <div className="drift-a absolute left-1/3 top-16 h-20 w-20 rounded-full bg-white/10 blur-xl" />
+        <div className="stagger relative">
+          <div className="flex items-center gap-2 text-sm font-bold text-white/90">
+            <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/15 ring-1 ring-white/25 backdrop-blur-sm">
+              <Icon name="chef" className="h-5 w-5" />
+            </span>
+            سفره
           </div>
-          <h1 className="mt-3 text-2xl font-black leading-tight">{data ? GREETING[data.mealHint] : "امروز چی بپزیم؟"}</h1>
-          <p className="mt-1 text-sm text-white/80">
+          <h1 className="mt-3 text-[26px] font-black leading-tight drop-shadow-sm">{data ? GREETING[data.mealHint] : "امروز چی بپزیم؟"}</h1>
+          <p className="mt-1.5 text-sm leading-6 text-white/85">
             {hasPantry
               ? `${toFa(data!.pantryCount)} ماده در یخچالت ثبت شده · ${toFa(data!.canCookNow.length)} غذا بدون خرید آماده‌ای`
               : "یخچالت رو وارد کن تا بگم الان چی می‌تونی بپزی"}
@@ -57,9 +61,9 @@ export default function HomePage() {
       <section className="relative -mt-10 px-4">
         <Link
           href={hasPantry ? "/recipes?minMatch=60&sort=match" : "/pantry"}
-          className="card flex items-center gap-4 border-0 p-4 shadow-lg shadow-brand-900/10 ring-1 ring-brand-100 press"
+          className="card shine flex items-center gap-4 border-0 p-4 shadow-lg shadow-brand-900/10 ring-1 ring-brand-100 press anim-fade-up"
         >
-          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-brand-600 text-white">
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-b from-brand-500 to-brand-700 text-white shadow-md shadow-brand-600/40">
             <Icon name="sparkles" className="h-7 w-7" />
           </div>
           <div className="min-w-0 flex-1">
@@ -85,7 +89,7 @@ export default function HomePage() {
               <p className="truncate font-extrabold">{data.activeSession.title}</p>
               <p className="text-xs text-white/70">مرحله {toFa(data.activeSession.currentStep)} · ادامه بده</p>
             </div>
-            <span className="rounded-full bg-brand-500 px-3 py-1.5 text-xs font-bold">ادامه</span>
+            <span className="rounded-full bg-brand-500 px-3 py-1.5 text-xs font-bold glow-pulse">ادامه</span>
           </Link>
         </section>
       )}
@@ -125,7 +129,7 @@ export default function HomePage() {
       {data && hasPantry && data.canCookNow.length > 0 && (
         <section className="mt-7">
           <SectionTitle title="الان می‌تونی اینا رو درست کنی" href="/recipes?minMatch=100" />
-          <div className="space-y-2.5 px-4">
+          <div className="stagger space-y-2.5 px-4">
             {data.canCookNow.slice(0, 4).map((r) => (
               <RecipeCard key={r.id} r={r} />
             ))}
@@ -158,7 +162,7 @@ export default function HomePage() {
       {data && (
         <section className="mt-7">
           <SectionTitle title="زیر ۳۰ دقیقه" href="/recipes?maxTime=30" />
-          <div className="space-y-2.5 px-4">
+          <div className="stagger space-y-2.5 px-4">
             {data.quick.slice(0, 3).map((r) => (
               <RecipeCard key={r.id} r={r} />
             ))}

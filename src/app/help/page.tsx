@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useApi } from "@/lib/use-api";
 import type { Substitution, TroubleshootTip } from "@/data/help";
 import { toFa } from "@/lib/types";
@@ -10,11 +10,10 @@ import { PageHeader, Sheet, Skeleton } from "@/components/ui";
 export default function HelpPage() {
   const [q, setQ] = useState("");
   const { data, loading } = useApi<{ troubleshoot: TroubleshootTip[]; substitutions: Substitution[] }>(`/api/help${q ? `?q=${encodeURIComponent(q)}` : ""}`);
-  const [tab, setTab] = useState<"trouble" | "subs">("trouble");
+  const [tab, setTab] = useState<"trouble" | "subs">(() =>
+    typeof window !== "undefined" && window.location.hash === "#subs" ? "subs" : "trouble"
+  );
   const [item, setItem] = useState<TroubleshootTip | null>(null);
-  useEffect(() => {
-    if (window.location.hash === "#subs") setTab("subs");
-  }, []);
 
   return (
     <main className="pb-24">
@@ -28,9 +27,9 @@ export default function HelpPage() {
       {loading && !data && <div className="mt-4 space-y-2 px-4"><Skeleton className="h-20" /><Skeleton className="h-20" /></div>}
 
       {tab === "trouble" && data && (
-        <section className="mt-4 grid grid-cols-2 gap-2 px-4">
+        <section className="stagger mt-4 grid grid-cols-2 gap-2 px-4">
           {data.troubleshoot.map((t) => (
-            <button key={t.key} onClick={() => setItem(t)} className="card flex flex-col items-start gap-1.5 p-4 text-right press">
+            <button key={t.key} onClick={() => setItem(t)} className="card card-lift flex flex-col items-start gap-1.5 p-4 text-right press">
               <span className="text-3xl">{t.emoji}</span>
               <span className="text-sm font-extrabold leading-5">{t.title}</span>
             </button>

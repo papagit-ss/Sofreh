@@ -24,19 +24,25 @@ export function MatchPill({ percent, missingCount, compact }: { percent: number;
 }
 
 export function MatchBar({ percent }: { percent: number }) {
-  const color = percent === 100 ? "bg-sage-500" : percent >= 70 ? "bg-amber-500" : "bg-stone-400";
+  const color =
+    percent === 100
+      ? "bg-gradient-to-l from-sage-500 to-emerald-400"
+      : percent >= 70
+        ? "bg-gradient-to-l from-amber-500 to-amber-400"
+        : "bg-stone-400";
   return (
     <div className="h-1.5 w-full overflow-hidden rounded-full bg-stone-100">
-      <div className={`h-full rounded-full ${color}`} style={{ width: `${percent}%` }} />
+      <div className={`h-full rounded-full match-grow ${color}`} style={{ width: `${percent}%` }} />
     </div>
   );
 }
 
 export function RecipeCard({ r, showMatch = true }: { r: RecipeSummary; showMatch?: boolean }) {
   return (
-    <Link href={`/recipes/${r.slug}`} className="card flex gap-3 p-3 press fade-in">
-      <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-50 to-brand-100 text-3xl">
-        {r.emoji}
+    <Link href={`/recipes/${r.slug}`} className="card card-lift flex gap-3 p-3 press">
+      <div className="relative flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-brand-50 via-brand-100 to-amber-100 text-3xl">
+        <span className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.75),transparent_55%)]" />
+        <span className="relative drop-shadow-sm">{r.emoji}</span>
       </div>
       <div className="min-w-0 flex-1">
         <div className="flex items-start justify-between gap-2">
@@ -67,8 +73,11 @@ export function RecipeCard({ r, showMatch = true }: { r: RecipeSummary; showMatc
 
 export function RecipeTile({ r }: { r: RecipeSummary }) {
   return (
-    <Link href={`/recipes/${r.slug}`} className="card flex w-40 shrink-0 flex-col p-3 press">
-      <div className="flex h-20 items-center justify-center rounded-xl bg-gradient-to-br from-brand-50 to-brand-100 text-4xl">{r.emoji}</div>
+    <Link href={`/recipes/${r.slug}`} className="card card-lift flex w-40 shrink-0 flex-col p-3 press">
+      <div className="relative flex h-20 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-brand-50 via-brand-100 to-amber-100 text-4xl">
+        <span className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.75),transparent_55%)]" />
+        <span className="relative drop-shadow-sm">{r.emoji}</span>
+      </div>
       <h3 className="mt-2 truncate text-sm font-extrabold">{r.title}</h3>
       <div className="mt-1 flex items-center justify-between text-[11px] text-stone-500">
         <span>{formatMinutes(r.totalMinutes)}</span>

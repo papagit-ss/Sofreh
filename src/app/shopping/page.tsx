@@ -107,7 +107,7 @@ export default function ShoppingPage() {
       {groups.map(([title, list]) => (
         <section key={title} className="mt-5">
           <h2 className="mb-2 px-4 text-sm font-extrabold text-stone-700">🍽️ برای {title}</h2>
-          <div className="card mx-4 divide-y divide-stone-100">
+          <div className="card stagger mx-4 divide-y divide-stone-100">
             {list.map((it) => <Row key={it.id} it={it} onToggle={() => toggle(it)} onRemove={() => removeItem(it.id)} />)}
           </div>
         </section>

@@ -41,7 +41,7 @@ export default function SavedPage() {
         {favs && favs.recipes.length === 0 && (
           <EmptyState emoji="❤️" title="هنوز غذایی ذخیره نکردی" text="روی قلب کنار هر غذا بزن تا اینجا ذخیره بشه." action={<Button href="/recipes" variant="secondary" size="md">دیدن غذاها</Button>} />
         )}
-        <div className="space-y-2.5 px-4">
+        <div className="stagger space-y-2.5 px-4">
           {favs?.recipes.map((r) => <RecipeCard key={r.id} r={r} />)}
         </div>
       </section>

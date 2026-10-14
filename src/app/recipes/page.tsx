@@ -140,7 +140,7 @@ function RecipesInner() {
         </select>
       </div>
 
-      <div className="space-y-2.5 px-4">
+      <div className="stagger space-y-2.5 px-4">
         {loading && !data && [1, 2, 3, 4, 5].map((i) => <Skeleton key={i} className="h-[104px]" />)}
         {data?.recipes.map((r) => (
           <RecipeCard key={r.id} r={r} />

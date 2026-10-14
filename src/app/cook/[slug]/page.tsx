@@ -187,7 +187,10 @@ export default function CookPage({ params }: { params: Promise<{ slug: string }>
           </button>
         </div>
         <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-stone-100">
-          <div className="h-full rounded-full bg-brand-600 transition-all duration-500" style={{ width: `${progress}%` }} />
+          <div
+            className="shine h-full rounded-full bg-gradient-to-l from-brand-600 via-brand-500 to-amber-500 transition-all duration-500"
+            style={{ width: `${Math.max(progress, 4)}%` }}
+          />
         </div>
       </header>
 
@@ -203,7 +206,7 @@ export default function CookPage({ params }: { params: Promise<{ slug: string }>
       )}
 
       {/* step content */}
-      <section key={step} className="flex flex-1 flex-col px-5 pt-6 fade-in">
+      <section key={step} className="flex flex-1 flex-col px-5 pt-6 step-in">
         <p className="text-sm font-bold text-brand-600">
           مرحله {toFa(step)} از {toFa(total)}
         </p>
@@ -216,19 +219,51 @@ export default function CookPage({ params }: { params: Promise<{ slug: string }>
         )}
 
         {timer && (
-          <div className={`mt-6 rounded-3xl p-5 text-center ring-1 ${timer.done ? "bg-sage-50 ring-sage-500/40" : "bg-stone-50 ring-stone-200"}`}>
+          <div className={`mt-6 rounded-3xl p-5 text-center ring-1 ${timer.done ? "bg-sage-50 ring-sage-500/40" : `bg-stone-50 ring-stone-200 ${timer.endAt ? "timer-glow" : ""}`}`}>
             {timer.done ? (
               <>
-                <p className="text-4xl">✅</p>
+                <p className="text-4xl wiggle">✅</p>
                 <p className="mt-2 text-lg font-black text-sage-600">زمان تمام شد — این مرحله انجام شد</p>
                 <button onClick={resetTimer} className="mt-2 text-sm font-semibold text-stone-500">تنظیم دوباره</button>
               </>
             ) : (
               <>
                 <p className="text-xs font-bold text-stone-500">تایمر این مرحله</p>
-                <p className="mt-1 text-6xl font-black tabular tracking-tight">{fmt(timer.remaining)}</p>
-                <div className="mx-auto mt-3 h-1.5 w-40 overflow-hidden rounded-full bg-stone-200">
-                  <div className="h-full bg-brand-600 transition-all" style={{ width: `${100 - (timer.remaining / timer.total) * 100}%` }} />
+                <div className="relative mx-auto mt-3 h-44 w-44">
+                  {timer.endAt && (
+                    <span className="steam absolute left-1/2 top-1 z-10 -translate-x-1/2" aria-hidden>
+                      <i />
+                      <i />
+                      <i />
+                    </span>
+                  )}
+                  <svg viewBox="0 0 120 120" className="h-full w-full -rotate-90">
+                    <circle cx="60" cy="60" r="52" fill="none" strokeWidth="9" className="stroke-stone-200" />
+                    <circle
+                      cx="60"
+                      cy="60"
+                      r="52"
+                      fill="none"
+                      strokeWidth="9"
+                      strokeLinecap="round"
+                      stroke="url(#timerGrad)"
+                      strokeDasharray={2 * Math.PI * 52}
+                      strokeDashoffset={2 * Math.PI * 52 * (timer.remaining / timer.total)}
+                      className="transition-all duration-500"
+                    />
+                    <defs>
+                      <linearGradient id="timerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#f24e0f" />
+                        <stop offset="100%" stopColor="#f59e0b" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <span className="text-[42px] font-black leading-none tabular tracking-tight">{fmt(timer.remaining)}</span>
+                    <span className="mt-1.5 text-[11px] font-semibold text-stone-400">
+                      از {timer.total >= 60 ? `${toFa(Math.round(timer.total / 60))} دقیقه` : `${toFa(timer.total)} ثانیه`}
+                    </span>
+                  </div>
                 </div>
                 <div className="mt-4 flex items-center justify-center gap-2">
                   {timer.endAt ? (
@@ -265,7 +300,7 @@ export default function CookPage({ params }: { params: Promise<{ slug: string }>
           >
             <Icon name="back" className="h-6 w-6" />
           </button>
-          <button onClick={goNext} className="flex h-16 flex-1 items-center justify-center gap-2 rounded-2xl bg-brand-600 text-lg font-black text-white shadow-lg shadow-brand-600/25 press">
+          <button onClick={goNext} className="shine flex h-16 flex-1 items-center justify-center gap-2 rounded-2xl bg-gradient-to-b from-brand-500 to-brand-600 text-lg font-black text-white shadow-lg shadow-brand-600/30 press">
             {step === total ? (
               <>تمام شد 🎉</>
             ) : (
@@ -340,6 +375,50 @@ function HelpSheet({ open, onClose, item, setItem }: { open: boolean; onClose: (
   );
 }
 
+const CONFETTI_COLORS = ["#e2531d", "#f59e0b", "#1b8a5a", "#ff9e70", "#15704a", "#ffc6a8"];
+
+function Confetti() {
+  const pieces = useMemo(
+    () =>
+      Array.from({ length: 30 }, (_, i) => ({
+        id: i,
+        right: `${(i * 37 + 13) % 100}%`,
+        width: 6 + ((i * 7) % 6),
+        height: 8 + ((i * 11) % 8),
+        color: CONFETTI_COLORS[i % CONFETTI_COLORS.length],
+        delay: `${(i % 12) * 0.14}s`,
+        duration: `${2.6 + (i % 5) * 0.45}s`,
+        sway: `${((i * 53) % 120) - 60}px`,
+        spin: `${360 + ((i * 97) % 420)}deg`,
+        round: i % 4 === 0,
+      })),
+    []
+  );
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+      {pieces.map((p) => (
+        <span
+          key={p.id}
+          className="confetti-piece"
+          style={
+            {
+              right: p.right,
+              width: p.width,
+              height: p.height,
+              background: p.color,
+              animationDelay: p.delay,
+              animationDuration: p.duration,
+              borderRadius: p.round ? "50%" : "2px",
+              "--sway": p.sway,
+              "--spin": p.spin,
+            } as React.CSSProperties
+          }
+        />
+      ))}
+    </div>
+  );
+}
+
 function FinishedScreen({ recipe, onRestart }: { recipe: RecipeDetail; onRestart: () => void }) {
   const toast = useToast();
   const { data: pantry } = useApi<{ items: PantryItemDto[] }>("/api/pantry");
@@ -356,9 +435,10 @@ function FinishedScreen({ recipe, onRestart }: { recipe: RecipeDetail; onRestart
   };
 
   return (
-    <main className="flex min-h-dvh flex-col bg-gradient-to-b from-sage-50 to-white px-5 pb-8 pt-16 text-center fade-in">
-      <div className="text-7xl">🎉</div>
-      <h1 className="mt-4 text-2xl font-black">نوش جان!</h1>
+    <main className="relative flex min-h-dvh flex-col overflow-hidden bg-gradient-to-b from-sage-50 to-white px-5 pb-8 pt-16 text-center fade-in">
+      <Confetti />
+      <div className="text-7xl anim-pop">🎉</div>
+      <h1 className="mt-4 text-2xl font-black anim-fade-up">نوش جان!</h1>
       <p className="mt-1 text-stone-600">{recipe.title} آماده شد.</p>
 
       {used.length > 0 && (

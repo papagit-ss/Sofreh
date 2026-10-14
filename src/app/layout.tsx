@@ -4,11 +4,11 @@ import "./globals.css";
 import { BottomNav } from "@/components/BottomNav";
 
 export const metadata: Metadata = {
-  title: "آشپز — دستیار آشپزی قدم‌به‌قدم",
+  title: "سفره — دستیار آشپزی قدم‌به‌قدم",
   description: "با چیزهایی که داری چی می‌تونی بپزی؟ لیست خرید هوشمند و آشپزی مرحله‌به‌مرحله با تایمر.",
   manifest: "/manifest.json",
-  applicationName: "آشپز",
-  appleWebApp: { capable: true, statusBarStyle: "default", title: "آشپز" },
+  applicationName: "سفره",
+  appleWebApp: { capable: true, statusBarStyle: "default", title: "سفره" },
   icons: { icon: "/icon.svg", apple: "/icon.svg" },
 };
 

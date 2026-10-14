@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-postgresql-template",
+  "name": "sofre",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -28,5 +28,7 @@
     "postcss": "8.5.8",
     "tailwindcss": "4.1.17",
     "typescript": "5.9.3"
-  }
+  },
+  "version": "1.0.0",
+  "description": "سفره — دستیار آشپزی فارسی: با موادی که داری چی می‌تونی بپزی؟"
 }

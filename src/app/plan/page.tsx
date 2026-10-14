@@ -115,7 +115,7 @@ export default function PlanPage() {
           <div className="card p-6 text-center text-sm text-stone-500">با این شرایط غذایی پیدا نشد؛ زمان یا بودجه رو کمی بیشتر کن.</div>
         )}
         {menus?.map((m, idx) => (
-          <div key={idx} className={`card mb-4 overflow-hidden ${idx === 0 ? "ring-2 ring-brand-500" : ""}`}>
+          <div key={idx} className={`card card-lift mb-4 overflow-hidden anim-fade-up ${idx === 0 ? "ring-2 ring-brand-500 shadow-lg shadow-brand-600/10" : ""}`} style={{ animationDelay: `${idx * 90}ms` }}>
             <button onClick={() => setExpanded(expanded === idx ? null : idx)} className="w-full p-4 text-right">
               <div className="flex items-center justify-between">
                 <p className="text-xs font-bold text-brand-600">{idx === 0 ? "⭐ پیشنهاد اول" : `گزینه ${toFa(idx + 1)}`}</p>

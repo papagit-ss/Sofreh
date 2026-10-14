@@ -82,9 +82,10 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
 
       <section className="px-4 pt-4">
         <div className="card overflow-hidden">
-          <div className="flex items-center gap-4 bg-gradient-to-bl from-brand-50 to-white p-4">
-            <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-3xl bg-white text-5xl shadow-sm">{r.emoji}</div>
-            <div className="min-w-0 flex-1">
+          <div className="relative flex items-center gap-4 overflow-hidden bg-gradient-to-bl from-brand-50 via-white to-amber-50 p-4">
+            <div className="absolute -left-8 -top-10 h-28 w-28 rounded-full bg-brand-100/60 blur-2xl" />
+            <div className="relative flex h-20 w-20 shrink-0 items-center justify-center rounded-3xl bg-white text-5xl shadow-md ring-1 ring-brand-100 float-slow">{r.emoji}</div>
+            <div className="relative min-w-0 flex-1">
               <p className="text-sm leading-6 text-stone-600">{r.description}</p>
               {r.timesCooked > 0 && <p className="mt-1 text-xs font-semibold text-sage-600">✓ {toFa(r.timesCooked)} بار پختی</p>}
             </div>
@@ -139,7 +140,7 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
       {/* Ingredients */}
       <section className="mt-5 px-4">
         <h2 className="mb-2 text-base font-extrabold">مواد لازم <span className="text-sm font-medium text-stone-500">برای {toFa(s)} نفر</span></h2>
-        <div className="card divide-y divide-stone-100">
+        <div className="card stagger divide-y divide-stone-100">
           {missing.map((i) => <IngRow key={i.ingredientId} i={i} />)}
           {have.map((i) => <IngRow key={i.ingredientId} i={i} />)}
           {optionalMissing.map((i) => <IngRow key={i.ingredientId} i={i} />)}
@@ -195,7 +196,7 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
       </section>
 
       {/* Sticky CTA */}
-      <div className="fixed inset-x-0 bottom-14 z-30 mx-auto max-w-lg px-4 pb-3 pt-2">
+      <div className="fixed inset-x-0 bottom-[5.75rem] z-30 mx-auto max-w-lg px-4 pb-3 pt-2">
         <div className="flex gap-2">
           {r.activeSession ? (
             <>
@@ -207,7 +208,7 @@ export default function RecipePage({ params }: { params: Promise<{ slug: string 
               </Button>
             </>
           ) : (
-            <Button className="flex-1 pulse-ring" onClick={() => startCooking(false)}>
+            <Button className="flex-1 glow-pulse" onClick={() => startCooking(false)}>
               <Icon name="chef" className="h-5 w-5" /> {r.timesCooked > 0 ? "دوباره بپز" : "شروع آشپزی"} · {toFa(s)} نفر
             </Button>
           )}

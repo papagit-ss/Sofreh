@@ -27,7 +27,7 @@ export default function PantryPage() {
   const [adding, setAdding] = useState<Ingredient | null>(null);
   const [browse, setBrowse] = useState(false);
 
-  const items = data?.items ?? [];
+  const items = useMemo(() => data?.items ?? [], [data]);
   const inPantry = useMemo(() => new Set(items.map((i) => i.ingredientId)), [items]);
   const allIng = ingData?.ingredients ?? [];
   const quick = QUICK_SLUGS.map((s) => allIng.find((i) => i.slug === s)).filter((x): x is Ingredient => !!x && !inPantry.has(x.id));
@@ -133,7 +133,7 @@ export default function PantryPage() {
             <h2 className="mb-2 px-4 text-sm font-extrabold text-stone-700">
               {loc === "fridge" ? "🧊" : loc === "freezer" ? "❄️" : "🗄️"} {LOCATION_LABELS[loc]} <span className="text-xs font-medium text-stone-400">({toFa(grouped[loc].length)})</span>
             </h2>
-            <div className="card mx-4 divide-y divide-stone-100">
+            <div className="card stagger mx-4 divide-y divide-stone-100">
               {grouped[loc].map((it) => (
                 <button key={it.id} onClick={() => setEditing(it)} className="flex w-full items-center gap-3 px-3.5 py-3 text-right press">
                   <div className="min-w-0 flex-1">
