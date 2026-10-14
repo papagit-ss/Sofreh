@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>سفره</title>
+<style>
+  * { box-sizing: border-box; margin: 0; font-family: system-ui, sans-serif; }
+  body {
+    min-height: 100dvh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 24px; color: #1c1917; text-align: center;
+    background:
+      radial-gradient(420px 300px at 85% -5%, rgba(226,83,29,.20), transparent 60%),
+      radial-gradient(380px 300px at 8% 105%, rgba(27,138,90,.14), transparent 60%),
+      #faf8f5;
+  }
+  .logo { font-size: 76px; line-height: 1; filter: drop-shadow(0 10px 24px rgba(226,83,29,.35)); }
+  h1 { font-size: 34px; font-weight: 900; margin-top: 10px; }
+  h1 span { color: #e2531d; }
+  p { color: #78716c; font-size: 14px; line-height: 1.9; margin-top: 8px; max-width: 320px; }
+  form { width: 100%; max-width: 340px; margin-top: 26px; }
+  label { display: block; text-align: right; font-size: 12px; font-weight: 700; color: #57534e; margin-bottom: 6px; }
+  input {
+    width: 100%; height: 52px; border: 1.5px solid #e7e2da; border-radius: 14px; padding: 0 14px;
+    font-size: 15px; direction: ltr; text-align: left; background: #fff; outline: none;
+  }
+  input:focus { border-color: #e2531d; box-shadow: 0 0 0 4px rgba(226,83,29,.15); }
+  button {
+    width: 100%; height: 52px; margin-top: 12px; border: 0; border-radius: 14px; cursor: pointer;
+    background: linear-gradient(180deg, #f06423, #d9480f); color: #fff; font-size: 16px; font-weight: 800;
+    box-shadow: 0 10px 24px rgba(226,83,29,.35);
+  }
+  button:active { transform: scale(.98); }
+  .hint { font-size: 12px; color: #a8a29e; margin-top: 14px; line-height: 1.9; }
+  .err { color: #b91c1c; font-size: 13px; margin-top: 10px; min-height: 18px; }
+  #connecting { display: none; }
+  .change { margin-top: 16px; background: none; border: 0; color: #e2531d; font-size: 13px; font-weight: 700; cursor: pointer; width: auto; height: auto; box-shadow: none; }
+</style>
+</head>
+<body>
+  <div id="setup">
+    <div class="logo">🍽️</div>
+    <h1>سفره <span>•</span> Sofreh</h1>
+    <p>نسخه آزمایشی — اپ روی سرور اجرا می‌شه. آدرس سروری که سفره روش بالاست رو وارد کن؛ مثلاً آی‌پی کامپیوترت تو وای‌فای خونه:</p>
+    <form id="f">
+      <label for="url">آدرس سرور</label>
+      <input id="url" type="text" inputmode="url" autocomplete="off" placeholder="http://192.168.1.20:3000" />
+      <div class="err" id="err"></div>
+      <button type="submit">اتصال به سفره ←</button>
+    </form>
+    <p class="hint">سرور رو روی کامپیوترت اجرا کن (دستورش توی ریپوی گیت‌هاب هست:<br/>docker compose up)<br/>گوشی و کامپیوتر باید روی یه وای‌فای باشن.</p>
+  </div>
+
+  <div id="connecting">
+    <div class="logo">🍽️</div>
+    <h1>سفره</h1>
+    <p>در حال اتصال به سرور…</p>
+    <button class="change" id="changeBtn">تغییر آدرس سرور</button>
+  </div>
+
+<script>
+  var KEY = "sofre:serverUrl";
+  var saved = localStorage.getItem(KEY);
+  var setupEl = document.getElementById("setup");
+  var connEl = document.getElementById("connecting");
+  var input = document.getElementById("url");
+
+  function go(url) {
+    setupEl.style.display = "none";
+    connEl.style.display = "block";
+    setTimeout(function () { window.location.href = url; }, 500);
+  }
+
+  if (saved) { input.value = saved; go(saved); }
+
+  document.getElementById("changeBtn").addEventListener("click", function () {
+    connEl.style.display = "none";
+    setupEl.style.display = "block";
+  });
+
+  document.getElementById("f").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var v = input.value.trim();
+    if (v && !/^https?:\/\//i.test(v)) v = "http://" + v;
+    if (!/^https?:\/\/[^\s/]+(:\d+)?/.test(v)) {
+      document.getElementById("err").textContent = "آدرس معتبر نیست؛ مثل: http://192.168.1.20:3000";
+      return;
+    }
+    localStorage.setItem(KEY, v);
+    go(v);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+	"appId": "ir.parasis.sofreh",
+	"appName": "سفره",
+	"webDir": "www",
+	"server": {
+		"cleartext": true,
+		"androidScheme": "http"
+	}
+}

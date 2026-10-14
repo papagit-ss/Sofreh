@@ -1,0 +1,30 @@
+# سفره — اجرای کامل (اپ + دیتابیس) با یک دستور:  docker compose up --build
+# بعدش اپ روی http://localhost:3000 بالاست؛ برای تست با گوشی،
+# آدرس آی‌پی کامپیوتر در وای‌فای (مثل http://192.168.1.20:3000) را در APK وارد کن.
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: sofre
+      POSTGRES_PASSWORD: sofre-local
+      POSTGRES_DB: sofre
+    volumes:
+      - sofre-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sofre -d sofre"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  app:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://sofre:sofre-local@db:5432/sofre
+    ports:
+      - "3000:3000"
+
+volumes:
+  sofre-db:
