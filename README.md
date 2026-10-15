@@ -2,7 +2,8 @@
 
 # 🍽️ سفره | Sofreh
 
-![Sofreh](assets/banner.png)
+<img src="assets/screenshots/home.png" width="270" alt="سفره — صفحه اصلی" />
+<img src="assets/screenshots/cook-mode.png" width="270" alt="سفره — حالت پخت قدم‌به‌قدم" />
 
 **دستیار آشپزی فارسی: با چیزایی که تو خونه داری، چی می‌تونی بپزی؟**
 *Sofreh is a Persian-first cooking assistant (PWA) — tell it what's in your fridge and it tells you what you can cook right now, walks you through it step by step with timers, and builds your shopping list from what's missing.*
@@ -24,6 +25,21 @@
 - 🆘 **مرکز نجات آشپزی** — راه‌حل فوری برای «غذا شور شده»، «برنج شفته شده»، «پیازم سوخت»… به‌همراه جدول جایگزین مواد.
 - 📚 **۳۳ دستور کامل فارسی** و **۸۸ ماده اولیه** — همه با مراحل دقیق، تایمر و نکته‌های حرفه‌ای (لوبیاپلو تا قورمه‌سبزی).
 - 📱 **PWA موبایل‌محور** — کاملاً فارسی و راست‌چین با فونت وزیرمتن، قابل نصب روی گوشی، بدون نیاز به ثبت‌نام (شناسه ناشناس روی دستگاه).
+
+## 📸 نمایی از برنامه | Screenshots
+
+اسکرین‌شات‌های واقعی از خود اپ در حال اجرا:
+
+<p align="center">
+  <img src="assets/screenshots/home.png" width="31%" alt="صفحه اصلی" />
+  <img src="assets/screenshots/recipes.png" width="31%" alt="فهرست غذاها با درصد تطبیق" />
+  <img src="assets/screenshots/recipe-detail.png" width="31%" alt="جزئیات دستور" />
+</p>
+<p align="center">
+  <img src="assets/screenshots/cook-mode.png" width="31%" alt="حالت پخت با تایمر دایره‌ای" />
+  <img src="assets/screenshots/pantry.png" width="31%" alt="یخچال هوشمند" />
+  <img src="assets/screenshots/plan.png" width="31%" alt="برنامه‌ریز مهمانی" />
+</p>
 
 ## 🛠️ Tech Stack
 
