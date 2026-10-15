@@ -2,26 +2,26 @@
 
 @theme {
   --font-sans: "Vazirmatn", "Vazir", "IRANSans", Tahoma, system-ui, sans-serif;
-  --color-brand-50: #fff4ee;
-  --color-brand-100: #ffe4d5;
-  --color-brand-200: #ffc6a8;
-  --color-brand-300: #ff9e70;
-  --color-brand-400: #ff6b36;
-  --color-brand-500: #f24e0f;
-  --color-brand-600: #e2531d;
-  --color-brand-700: #b93b0f;
-  --color-brand-800: #933112;
-  --color-brand-900: #772c13;
-  --color-sage-50: #eefaf3;
-  --color-sage-100: #d6f2e1;
-  --color-sage-500: #1b8a5a;
-  --color-sage-600: #15704a;
-  --color-cream: #faf8f5;
-  --color-ink: #1c1917;
+  --color-brand-50: #edf5ee;
+  --color-brand-100: #dceade;
+  --color-brand-200: #bdd8c3;
+  --color-brand-300: #91bd9d;
+  --color-brand-400: #5b9670;
+  --color-brand-500: #2f704b;
+  --color-brand-600: #245b3a;
+  --color-brand-700: #1e4a31;
+  --color-brand-800: #173b28;
+  --color-brand-900: #102e20;
+  --color-sage-50: #f0f5eb;
+  --color-sage-100: #dce8cf;
+  --color-sage-500: #527b45;
+  --color-sage-600: #3f6335;
+  --color-cream: #f8f7f1;
+  --color-ink: #18271d;
   --radius-2xl: 1.25rem;
   --radius-3xl: 1.75rem;
-  --shadow-card: 0 1px 2px rgba(28, 25, 23, 0.05), 0 8px 24px -12px rgba(28, 25, 23, 0.12);
-  --shadow-lift: 0 2px 4px rgba(28, 25, 23, 0.06), 0 16px 32px -12px rgba(226, 83, 29, 0.25);
+  --shadow-card: 0 1px 2px rgba(24, 39, 29, 0.035), 0 8px 22px -14px rgba(24, 39, 29, 0.15);
+  --shadow-lift: 0 2px 4px rgba(28, 25, 23, 0.06), 0 16px 32px -12px rgba(36, 91, 58, 0.25);
 }
 
 @layer base {
@@ -30,10 +30,7 @@
     -webkit-tap-highlight-color: transparent;
   }
   body {
-    background:
-      radial-gradient(rgba(226, 83, 29, 0.045) 1px, transparent 1.4px),
-      var(--color-cream);
-    background-size: 22px 22px, auto;
+    background: var(--color-cream);
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-feature-settings: "ss01";
@@ -48,6 +45,10 @@
   button {
     cursor: pointer;
     touch-action: manipulation;
+  }
+  :focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--color-brand-500) 72%, white);
+    outline-offset: 3px;
   }
   ::selection {
     background: var(--color-brand-200);
@@ -68,16 +69,17 @@
     font-variant-numeric: tabular-nums;
   }
   .press:active {
-    transform: scale(0.97);
+    transform: scale(0.985);
   }
   .press {
     transition: transform 120ms ease, background-color 150ms ease, opacity 150ms ease, box-shadow 200ms ease;
   }
   .card {
     background: white;
-    border: 1px solid #ede9e4;
+    border: 1px solid #e7e8df;
     border-radius: var(--radius-2xl);
     box-shadow: var(--shadow-card);
+    transition: border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
   }
   .card-lift {
     transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 220ms ease;
