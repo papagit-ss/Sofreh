@@ -13,10 +13,10 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#e2531d",
+  themeColor: "#234d3a",
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
+  maximumScale: 5,
   viewportFit: "cover",
 };
 
@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         />
       </head>
       <body className="min-h-dvh antialiased">
-        <div className="mx-auto min-h-dvh w-full max-w-lg bg-cream md:border-x md:border-stone-200">
+        <div className="mx-auto min-h-dvh w-full max-w-lg bg-cream md:shadow-[0_0_70px_-35px_rgba(24,39,29,0.28)] md:ring-1 md:ring-stone-200/70">
           {children}
         </div>
         <BottomNav />

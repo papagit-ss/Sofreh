@@ -18,7 +18,7 @@ export function PageHeader({
 }) {
   const router = useRouter();
   return (
-    <header className="sticky top-0 z-30 border-b border-stone-200/70 bg-cream/90 px-4 pb-3 pt-4 backdrop-blur">
+    <header className="sticky top-0 z-30 border-b border-stone-200/70 bg-cream/95 px-4 pb-3 pt-4 backdrop-blur-xl">
       <div className="flex items-center gap-3">
         {back && (
           <button
@@ -84,11 +84,11 @@ export function Button({
 }) {
   const sizes = { lg: "h-13 px-5 text-base rounded-2xl", md: "h-11 px-4 text-sm rounded-xl", sm: "h-9 px-3 text-sm rounded-lg" };
   const variants = {
-    primary: "bg-gradient-to-b from-brand-500 to-brand-600 text-white shadow-md shadow-brand-600/30 hover:from-brand-600 hover:to-brand-700",
+    primary: "bg-brand-700 text-white shadow-sm shadow-brand-900/15 hover:bg-brand-800",
     secondary: "bg-white text-ink ring-1 ring-stone-200 shadow-sm hover:bg-stone-50",
     ghost: "bg-transparent text-stone-700 hover:bg-stone-100",
     danger: "bg-red-50 text-red-700 ring-1 ring-red-200",
-    green: "bg-gradient-to-b from-sage-500 to-sage-600 text-white shadow-md shadow-sage-500/30",
+    green: "bg-sage-600 text-white shadow-sm shadow-sage-900/10 hover:bg-sage-600",
   };
   const cls = `inline-flex items-center justify-center gap-2 font-bold press disabled:opacity-50 disabled:pointer-events-none ${sizes[size]} ${variants[variant]} ${className}`;
   if (href) {
@@ -164,7 +164,10 @@ export function Skeleton({ className = "" }: { className?: string }) {
 export function SectionTitle({ title, href, hrefLabel = "همه" }: { title: string; href?: string; hrefLabel?: string }) {
   return (
     <div className="mb-3 flex items-center justify-between px-4">
-      <h2 className="text-base font-extrabold">{title}</h2>
+      <div className="flex min-w-0 items-center gap-2.5">
+        <span aria-hidden="true" className="h-5 w-1 shrink-0 rounded-full bg-brand-500" />
+        <h2 className="text-base font-black tracking-tight text-ink">{title}</h2>
+      </div>
       {href && (
         <Link href={href} className="text-sm font-semibold text-brand-600">
           {hrefLabel} ←

@@ -17,7 +17,7 @@ export function BottomNav() {
   if (pathname.startsWith("/cook/")) return null;
   return (
     <nav className="pointer-events-none fixed inset-x-0 bottom-0 z-40 mx-auto w-full max-w-lg px-3 pb-3 safe-bottom">
-      <ul className="pointer-events-auto grid grid-cols-5 rounded-[1.75rem] bg-white/85 p-1.5 shadow-[0_12px_36px_-10px_rgba(28,25,23,0.35)] ring-1 ring-stone-900/5 backdrop-blur-xl">
+      <ul className="pointer-events-auto grid grid-cols-5 rounded-[1.5rem] border border-stone-200/80 bg-white/95 p-1 shadow-[0_8px_28px_-14px_rgba(24,39,29,0.32)] backdrop-blur-xl">
         {TABS.map((t) => {
           const active = t.href === "/" ? pathname === "/" : pathname.startsWith(t.href);
           return (
@@ -29,7 +29,7 @@ export function BottomNav() {
                 }`}
               >
                 <span
-                  className={`absolute inset-0 rounded-3xl bg-gradient-to-b from-brand-50 to-brand-100 ring-1 ring-brand-200/60 transition-all duration-300 ${
+                  className={`absolute inset-0 rounded-[1.1rem] bg-brand-50 ring-1 ring-brand-100 transition-all duration-300 ${
                     active ? "scale-100 opacity-100" : "scale-75 opacity-0"
                   }`}
                 />

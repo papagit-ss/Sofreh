@@ -39,14 +39,14 @@ export function MatchBar({ percent }: { percent: number }) {
 
 export function RecipeCard({ r, showMatch = true }: { r: RecipeSummary; showMatch?: boolean }) {
   return (
-    <Link href={`/recipes/${r.slug}`} className="card card-lift flex gap-3 p-3 press">
-      <div className="relative flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-brand-50 via-brand-100 to-amber-100 text-3xl">
+    <Link href={`/recipes/${r.slug}`} className="card card-lift flex gap-3 p-3.5 press">
+      <div className="relative flex h-[4.5rem] w-[4.5rem] shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-stone-100 bg-gradient-to-br from-brand-50 via-white to-amber-50 text-3xl">
         <span className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.75),transparent_55%)]" />
         <span className="relative drop-shadow-sm">{r.emoji}</span>
       </div>
       <div className="min-w-0 flex-1">
         <div className="flex items-start justify-between gap-2">
-          <h3 className="truncate text-[15px] font-extrabold">{r.title}</h3>
+          <h3 className="truncate text-[15px] font-black tracking-tight">{r.title}</h3>
           {r.isFavorite && <Icon name="heartFill" className="h-4 w-4 shrink-0 text-brand-600" />}
         </div>
         <p className="mt-0.5 line-clamp-1 text-xs text-stone-500">{r.description}</p>
@@ -73,8 +73,8 @@ export function RecipeCard({ r, showMatch = true }: { r: RecipeSummary; showMatc
 
 export function RecipeTile({ r }: { r: RecipeSummary }) {
   return (
-    <Link href={`/recipes/${r.slug}`} className="card card-lift flex w-40 shrink-0 flex-col p-3 press">
-      <div className="relative flex h-20 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-brand-50 via-brand-100 to-amber-100 text-4xl">
+    <Link href={`/recipes/${r.slug}`} className="card card-lift flex w-44 shrink-0 flex-col p-3.5 press">
+      <div className="relative flex h-24 items-center justify-center overflow-hidden rounded-xl border border-stone-100 bg-gradient-to-br from-brand-50 via-white to-amber-50 text-4xl">
         <span className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.75),transparent_55%)]" />
         <span className="relative drop-shadow-sm">{r.emoji}</span>
       </div>

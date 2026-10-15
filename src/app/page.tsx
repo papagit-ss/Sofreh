@@ -37,22 +37,31 @@ export default function HomePage() {
   return (
     <main className="pb-24">
       {/* Hero */}
-      <section className="grain relative overflow-hidden bg-gradient-to-bl from-brand-700 via-brand-500 to-brand-400 aurora px-5 pb-16 pt-8 text-white">
-        <div className="drift-a absolute -left-12 -top-12 h-44 w-44 rounded-full bg-white/15 blur-2xl" />
-        <div className="drift-b absolute -bottom-20 right-6 h-52 w-52 rounded-full bg-amber-300/25 blur-3xl" />
-        <div className="drift-a absolute left-1/3 top-16 h-20 w-20 rounded-full bg-white/10 blur-xl" />
-        <div className="stagger relative">
-          <div className="flex items-center gap-2 text-sm font-bold text-white/90">
-            <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white/15 ring-1 ring-white/25 backdrop-blur-sm">
+      <section className="relative overflow-hidden rounded-b-[2rem] bg-gradient-to-br from-brand-900 via-brand-800 to-brand-700 px-5 pb-16 pt-7 text-white">
+        <div aria-hidden="true" className="pointer-events-none absolute -left-16 -top-14 h-56 w-56 rounded-full border border-white/10" />
+        <div aria-hidden="true" className="pointer-events-none absolute -bottom-20 -right-10 h-64 w-64 rounded-full border border-white/10" />
+        <div className="relative">
+          <div className="flex items-center gap-3">
+            <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 text-white ring-1 ring-white/15">
               <Icon name="chef" className="h-5 w-5" />
             </span>
-            سفره
+            <div>
+              <p className="text-base font-black tracking-tight">سفره</p>
+              <p className="mt-0.5 text-[10px] font-medium text-white/60">دستیار هوشمند آشپزخانه</p>
+            </div>
           </div>
-          <h1 className="mt-3 text-[26px] font-black leading-tight drop-shadow-sm">{data ? GREETING[data.mealHint] : "امروز چی بپزیم؟"}</h1>
-          <p className="mt-1.5 text-sm leading-6 text-white/85">
-            {hasPantry
-              ? `${toFa(data!.pantryCount)} ماده در یخچالت ثبت شده · ${toFa(data!.canCookNow.length)} غذا بدون خرید آماده‌ای`
-              : "یخچالت رو وارد کن تا بگم الان چی می‌تونی بپزی"}
+          <h1 className="mt-6 max-w-sm text-[28px] font-black leading-[1.45] tracking-tight">
+            {data ? GREETING[data.mealHint] : "امروز چی بپزیم؟"}
+          </h1>
+          <p className="mt-2 max-w-xs text-sm leading-7 text-white/75">
+            {hasPantry ? (
+              <>
+                <span className="font-bold text-white">{toFa(data!.pantryCount)} ماده</span> در آشپزخونه‌ته؛
+                <span className="font-bold text-white"> {toFa(data!.canCookNow.length)} غذا</span> رو همین الان می‌تونی درست کنی.
+              </>
+            ) : (
+              "مواد غذایی خونه‌ات رو ثبت کن تا سفره، پیشنهادهای مناسب امروزت رو پیدا کنه."
+            )}
           </p>
         </div>
       </section>
@@ -61,14 +70,14 @@ export default function HomePage() {
       <section className="relative -mt-10 px-4">
         <Link
           href={hasPantry ? "/recipes?minMatch=60&sort=match" : "/pantry"}
-          className="card shine flex items-center gap-4 border-0 p-4 shadow-lg shadow-brand-900/10 ring-1 ring-brand-100 press anim-fade-up"
+          className="card flex items-center gap-4 border border-brand-100 bg-white p-4 shadow-sm press anim-fade-up"
         >
-          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-b from-brand-500 to-brand-700 text-white shadow-md shadow-brand-600/40">
+          <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-brand-700 text-white">
             <Icon name="sparkles" className="h-7 w-7" />
           </div>
           <div className="min-w-0 flex-1">
             <h2 className="text-base font-extrabold">با چیزایی که الان دارم چی می‌شه درست کرد؟</h2>
-            <p className="mt-0.5 text-xs text-stone-500">
+            <p className="mt-1 text-xs leading-5 text-stone-500">
               {hasPantry ? "بر اساس یخچال و کابینتت مرتب‌شده" : "اول چند ماده به یخچالت اضافه کن"}
             </p>
           </div>
@@ -81,7 +90,7 @@ export default function HomePage() {
         <section className="mt-4 px-4">
           <Link
             href={`/cook/${data.activeSession.slug}`}
-            className="flex items-center gap-3 rounded-2xl bg-ink p-4 text-white press"
+            className="flex items-center gap-3 rounded-2xl bg-brand-900 p-4 text-white press"
           >
             <span className="text-3xl">{data.activeSession.emoji}</span>
             <div className="min-w-0 flex-1">
@@ -192,7 +201,7 @@ export default function HomePage() {
             <p className="mt-1 text-sm leading-6 text-stone-600">
               مواد پرمصرف مثل برنج، مرغ، پیاز، رب و تخم‌مرغ رو با یک ضربه اضافه کن؛ بعدش برای هر غذا دقیق می‌گم چی داری و چی باید بخری.
             </p>
-            <Link href="/pantry" className="mt-4 inline-flex h-11 items-center gap-2 rounded-xl bg-sage-500 px-4 text-sm font-bold text-white press">
+            <Link href="/pantry" className="mt-4 inline-flex h-11 items-center gap-2 rounded-xl bg-brand-700 px-4 text-sm font-bold text-white press">
               شروع کن <Icon name="forward" className="h-4 w-4" />
             </Link>
           </div>
@@ -216,7 +225,7 @@ function QuickAction({
   badgeTone?: "brand" | "amber";
 }) {
   return (
-    <Link href={href} className="card relative flex flex-col items-center gap-1.5 py-3.5 press">
+    <Link href={href} className="card relative flex flex-col items-center gap-2 py-3.5 press">
       {badge && (
         <span
           className={`absolute -top-1.5 left-2 rounded-full px-1.5 py-0.5 text-[10px] font-bold text-white ${badgeTone === "amber" ? "bg-amber-500" : "bg-brand-600"}`}
@@ -224,10 +233,10 @@ function QuickAction({
           {badge}
         </span>
       )}
-      <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
+      <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-brand-50 text-brand-700">
         <Icon name={icon} className="h-5 w-5" />
       </span>
-      <span className="text-[11px] font-bold text-stone-700">{label}</span>
+      <span className="text-[11px] font-extrabold text-stone-700">{label}</span>
     </Link>
   );
 }
