@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   applicationName: "سفره",
   appleWebApp: { capable: true, statusBarStyle: "default", title: "سفره" },
-  icons: { icon: "/icon.svg", apple: "/icon.svg" },
+  icons: { icon: "/icon-512.png", apple: "/icon-192.png" },
 };
 
 export const viewport: Viewport = {
