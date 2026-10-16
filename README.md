@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="assets/logo.jpg" width="140" alt="Sofreh logo" />
+
 # 🍽️ سفره | Sofreh
 
 <img src="assets/screenshots/home.png" width="270" alt="سفره — صفحه اصلی" />
